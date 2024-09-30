@@ -111,82 +111,17 @@ class Solution {
     // Function to return a list of integers denoting the node
     // values of both the BST in a sorted order.
     public List<Integer> merge(Node root1, Node root2) {
-        List<Integer>a=new ArrayList<>();
-
-        if(root1==null){
-
-            return a;
-
-        }
-
-        else{
-
-            Queue<Node>q1=new LinkedList<>();
-
-            q1.add(root1);
-
-            while(!q1.isEmpty()){
-
-                Node node1=q1.poll();
-
-                a.add(node1.data);
-
-                if(node1.left!=null){
-
-                    q1.add(node1.left);
-
-                }
-
-                if(node1.right!=null){
-
-                    q1.add(node1.right);
-
-                }
-
-            }
-
-        }       
-
-        List<Integer>b=new ArrayList<>();
-
-        if(root2==null){
-
-            return b;
-
-        }
-
-        else{
-
-            Queue<Node>q2=new LinkedList<>();
-
-            q2.add(root2);
-
-            while(!q2.isEmpty()){
-
-                Node node2=q2.poll();
-
-                b.add(node2.data);
-
-                if(node2.left!=null){
-
-                    q2.add(node2.left);
-
-                }
-
-                if(node2.right!=null){
-
-                    q2.add(node2.right);
-
-                }
-
-            }
-
-        }
-
-        a.addAll(b);
-
-        Collections.sort(a);
-
-        return a;
+        List<Integer> sortedList = new ArrayList<>();
+        inOrderTraversal(root1, sortedList);
+        inOrderTraversal(root2, sortedList);
+        sortedList.sort(Integer::compareTo);
+        return sortedList;
+    }
+    
+    private void inOrderTraversal(Node root, List<Integer> sortedList) {
+        if (root == null) return;
+        inOrderTraversal(root.left, sortedList);
+        sortedList.add(root.data);
+        inOrderTraversal(root.right, sortedList);
     }
 }
